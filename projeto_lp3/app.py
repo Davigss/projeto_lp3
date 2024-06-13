@@ -1,4 +1,6 @@
 from flask import Flask
+from validate_docbr import CPF, CNPJ
+
 
 app = Flask(__name__)
 
@@ -18,3 +20,18 @@ def xxxxx():
 @app.route("/produtos")
 def produtos():
     return "<h1>Produtos</h1>" 
+
+# página /serviços retornar "Nossos Serviços"
+@app.route("/servicos")
+def servicos():
+    return "<h1>Nossos Serviços</h1>"
+# gerar CPF
+@app.route("/gerar-cpf")
+def gerar_cpf():
+    return CPF().generate(True)
+
+@app.route("/gerar-cnpj")
+def gerar_cnpj():
+    return CNPJ().generate(True)
+
+app.run()
