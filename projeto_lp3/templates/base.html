@@ -14,16 +14,48 @@ text-align: center;
 
 }
 
+div{
+
+padding: 10px;
+margin-left: 300px;
+margin-right: 300px;
+}
+
+img{
+
+    height: 275px;
+    width: 275px;
+}
+
+footer{
+margin-top: 70px;
+width: 80%;
+height: 20px;
+bottom: 0;
+left: 0;
+border-top: 0.1rem outset black;
+margin-inline: auto;
+}
+
 </style>
 <body>
     <Nav>
-        <a href="/">Home Page</a>
-        <a href="/contato">Contato</a>
+        <a href="/">Home Page</a>&nbsp;&nbsp;
+        <a href="/contato">Contato</a>&nbsp;&nbsp;
         <a href="/produtos">Produtos</a>
     </Nav>
 
     {% block content %}
     {% endblock %}
     
+<footer>
+
+    <div>Desenvolvido por Davi Gomes, 2024 &copy;</div><br>
+    <a href="/termo">  Termos de Uso  </a>&nbsp;&nbsp;&nbsp;
+    <a href="/politicas">   Políticas de Privacidade </a>&nbsp;&nbsp;&nbsp;
+    <a href="/comousar">  Como Utilizar  </a>
+ 
+</footer>
+
 </body>
 </html>

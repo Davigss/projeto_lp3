@@ -16,6 +16,18 @@ def home():
 def xxxxx():
     return render_template("contato.html")
 
+@app.route("/termo")
+def termo():
+    return render_template("termo.html")
+
+@app.route("/politicas")
+def politicas():
+    return render_template("politicas.html")
+
+@app.route("/comousar")
+def comousar():
+    return render_template("comousar.html")
+
 # /produtos - págian e produtos
 @app.route("/produtos")
 def produtos():
@@ -32,13 +44,18 @@ def produtos():
 @app.route("/servicos")
 def servicos():
     return "<h1>Nossos Serviços</h1>"
+
 # gerar CPF
 @app.route("/gerar-cpf")
 def gerar_cpf():
-    return CPF().generate(True)
+    cpf = CPF()
+
+    return render_template("gerar-cpf.html", cpfs = cpf.generate(True))
 
 @app.route("/gerar-cnpj")
 def gerar_cnpj():
-    return CNPJ().generate(True)
+    cnpj = CNPJ()
+
+    return render_template("gerar-cnpj.html", cpfs = cnpj.generate(True))
 
 app.run()
