@@ -1,9 +1,16 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from validate_docbr import CPF, CNPJ
 
 
 app = Flask(__name__)
 
+
+lista_produtos = [
+        {"nome" : "Tigrinho", "descricao" : "Multiplica seu dinheiro", "imagem" : "https://veja.abril.com.br/wp-content/uploads/2024/06/tigrinho.jpg?crop=1&resize=1212,909"},
+        {"nome" : "Elden Ring", "descricao" : "Absolute Game, mais de 300 de jogo ", "imagem" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU_cspEzfgMdenwt0VS7QHBJCOdWaVkrXyvA&s"},
+        {"nome" : "RDR2", "descricao" : "Te da uma nova experiencia de vida", "imagem" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYhTdrfXk0LVl96VEdgauqXRMzn6cvUJ6nzA&s"},
+        {"nome" : "Stardew valley", "descricao" : "joguinho para apaziguar a vida", "imagem" : "https://4.bp.blogspot.com/-UkrL69U4Pvk/Vw6F9_oI12I/AAAAAAAAAtg/oRTty0rp4Igz2lTzwplBAjQgR_UKoSA8wCK4B/s1600/Stardew-Valley.jpg"},       
+    ]
 # rota = função
 
 # / - home page
@@ -31,13 +38,6 @@ def comousar():
 # /produtos - págian e produtos
 @app.route("/produtos")
 def produtos():
-    lista_produtos = [
-        {"nome" : "Tigrinho", "descricao" : "Multiplica seu dinheiro", "imagem" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjByqUxAwkmJj3JFDKw2-YgNmg200MKGNl6A&s"},
-        {"nome" : "Agiotagem", "descricao" : "Te da dinheiro para jogar no tigrinho", "imagem" : "https://ambitojuridico.com.br/wp-content/uploads/2023/03/Captura-de-tela_20230303_152020.webp"},
-        {"nome" : "RDR2", "descricao" : "Te da uma nova experiencia de vida", "imagem" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRYhTdrfXk0LVl96VEdgauqXRMzn6cvUJ6nzA&s"},        
-    ]
-
-
     return render_template("produtos.html", produtos=lista_produtos) 
 
 # página /serviços retornar "Nossos Serviços"
@@ -58,4 +58,23 @@ def gerar_cnpj():
 
     return render_template("gerar-cnpj.html", cpfs = cnpj.generate(True))
 
+#GET
+
+@app.route("/produtos/cadastro")
+def cadastro_produto():
+    return render_template("cadastro-produto.html")
+
+#POST 
+@app.route("/produtos", methods=['POST'])
+def salvar_produto():
+    nome = request.form["nome"]
+    descricao = request.form["descricao"]
+    imagem = request.form["imagem"]
+    produto = {"nome": nome, "descricao": descricao, "imagem": imagem}
+    lista_produtos.append(produto)
+    return render_template("produtos.html", produtos = lista_produtos)
+
 app.run()
+
+
+
